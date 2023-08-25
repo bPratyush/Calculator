@@ -32,9 +32,23 @@ function calculateExponent() {
 
 function calculate() {
     try {
-        const result = eval(currentInput);
-        document.getElementById('display').value = result;
-        currentInput = result.toString();
+        if (currentInput.includes('^')) {
+            const parts = currentInput.split('^');
+            if (parts.length === 2) {
+                const base = parseFloat(parts[0]);
+                const exponent = parseFloat(parts[1]);
+                const result = Math.pow(base, exponent);
+                document.getElementById('display').value = result;
+                currentInput = result.toString();
+            } else {
+                document.getElementById('display').value = 'Error';
+                currentInput = '';
+            }
+        } else {
+            const result = eval(currentInput);
+            document.getElementById('display').value = result;
+            currentInput = result.toString();
+        }
     } catch (error) {
         document.getElementById('display').value = 'Error';
         currentInput = '';
